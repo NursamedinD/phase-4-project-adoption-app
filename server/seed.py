@@ -10,7 +10,7 @@ with app.app_context():
     db.create_all()
 
 def seed_data():
-    for i in range (5):
+    for _ in range (5):
         parent = Parent(
             name=fake.name(),
             username=fake.user_name(),
@@ -20,7 +20,7 @@ def seed_data():
         db.session.add(parent)
     
     parents = Parent.query.all()
-    for i in range (5):
+    for _ in range (5):
         child = Child(
             name=fake.name(),
             age=fake.random_int(min=1, max=18),

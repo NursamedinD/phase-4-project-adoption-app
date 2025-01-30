@@ -17,7 +17,6 @@ metadata = MetaData(
         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
     }
 )
-db = SQLAlchemy(metadata=metadata)
 migrate = Migrate(app, db)
 db.init_app(app)
 
@@ -65,7 +64,7 @@ def create_adoption():
     return jsonify(new_adoption.to_dict()), 201
 
 @app.route("/adoptions/<int:id>", methods=["DELETE"])
-def delete_adoption():
+def delete_adoption(id):
     adoption = ChildParents.query.get(id)
     if adoption:
         db.session.delete(adoption)

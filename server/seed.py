@@ -2,6 +2,7 @@ from app import app, db
 from models import Parent, Child, ChildParents
 from faker import Faker
 from datetime import datetime
+import random
 
 fake = Faker()
 
@@ -26,14 +27,14 @@ with app.app_context():
             name=fake.name(),
             age=fake.random_int(min=1, max=18),
             description=fake.text(),
-            added_by=fake.choice(parents).id,
+            added_by=random.choice(parents).id,
         )
         db.session.add(child)
-        children.append(parent)
+        children.append(child)
 
     for child in children:
         adoption = ChildParents(
-            parent_id=fake.random_element(parents).id,
+            parent_id=random.choice(parents).id,
             child_id=child.id,
             adoption_date=datetime.strptime(fake.date(), "%Y-%m-%d"),
         )

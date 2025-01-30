@@ -29,6 +29,7 @@ class ChildParents(db.Model, SerializerMixin):
     parent_id = db.Column(db.Integer, db.ForeignKey('parents.id'), nullable=False)
     child_id = db.Column(db.Integer, db.ForeignKey('children.id'), nullable=False)
     adoption_date = db.Column(db.Date, nullable=False)
+    status = db.Column(db.String, nullable=False)
 
     parent = db.relationship('Parent', back_populates='adoptions')
     child = db.relationship('Child', back_populates='adoptions')

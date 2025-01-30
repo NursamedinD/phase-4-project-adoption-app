@@ -23,6 +23,9 @@ metadata = MetaData(
 
 api = Api(app)
 
+@app.route('/')
+def index():
+    return "<h1>Welcome to Child Adoption Api</h1>"
 
 
 @app.route("/parents", methods=["POST"])

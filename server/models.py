@@ -19,7 +19,7 @@ class Child (db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String, nullable=False)
-    added_by = db.Column(db.Integer, db.ForeignKey('parents.id'), nullable=False)
+    added_by = db.Column(db.Integer, db.ForeignKey('parents.id'), nullable=False, default="Unknown")
 
     adoptions = db.relationship('ChildParents', back_populates='child')
 

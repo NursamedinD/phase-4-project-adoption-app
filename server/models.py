@@ -11,7 +11,7 @@ class Parent (db.Model, SerializerMixin):
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    children = db.relationship('ChildParents', back_populates='parent')
+    adoptions = db.relationship('ChildParents', back_populates='parent')
 
 class Child (db.Model, SerializerMixin):
     __tablename__ = 'children'
@@ -21,7 +21,7 @@ class Child (db.Model, SerializerMixin):
     description = db.Column(db.String, nullable=False)
     added_by = db.Column(db.Integer, db.ForeignKey('parents.id'), nullable=False)
 
-    parents = db.relationship('ChildParents', back_populates='child')
+    adoptions = db.relationship('ChildParents', back_populates='child')
 
 class ChildParents(db.Model, SerializerMixin):
     __tablename__= 'child_parents'

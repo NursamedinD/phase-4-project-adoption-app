@@ -27,7 +27,7 @@ with app.app_context():
             name=fake.name(),
             age=fake.random_int(min=1, max=18),
             description=fake.text(),
-            added_by=random.choice(parents).id,
+            added_by=random .choice(parents).id,
         )
         db.session.add(child)
         children.append(child)

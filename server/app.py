@@ -46,6 +46,42 @@ def create_parent():
     db.session.commit()
     return jsonify(new_parent.to_dict()), 201
 
+@app.route("/parents/<int:id>", methods=["PATCH"])
+def update_parent(id):
+    parent = Parent.query.get(id)
+    if not parent:
+        return jsonify({"message": "Parent not found"}), 404
+    
+    try:
+        data = request.get_json()
+        
+        for field in ["name", "username", "email", "password"]:
+            if field in data:
+                setattr(parent, field, data[field])
+        
+        db.session.commit()
+        return jsonify(parent.to_dict()), 200
+    
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": "Error updating parent", "error": str(e)}), 400
+    
+@app.route("/parents/<int:id>", methods=["DELETE"])
+def delete_parent(id):
+    parent = Parent.query.get(id)
+    if not parent:
+        return jsonify({"message": "Parent not found"}), 404
+    
+    try:
+        ChildParents.query.filter_by(parent_id=id).delete()
+        db.session.delete(parent)
+        db.session.commit()
+        
+        return jsonify({"message": "Parent deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": "Error deleting parent", "error": str(e)}), 400
+
 @app.route("/children", methods=['GET'])
 def get_children():
     children = Child.query.all()
@@ -63,6 +99,47 @@ def create_child():
     db.session.add(new_child)
     db.session.commit()
     return jsonify(new_child.to_dict()), 201
+
+@app.route("/children/<int:id>", methods=["DELETE"])
+def delete_childt(id):
+    child = Child.query.get(id)
+    if not child:
+        return jsonify({"message": "Child not found"}), 404
+    
+    try:
+        ChildParents.query.filter_by(child_id=id).delete()
+        db.session.delete(child)
+        db.session.commit()
+        
+        return jsonify({"message": "Child deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": "Error deleting child", "error": str(e)}), 400
+
+@app.route("/adoptions", methods=["GET"])
+def get_adoptions():
+    adoptions = ChildParents.query.all()
+    return jsonify([adoption.to_dict() for adoption in adoptions]), 200
+
+@app.route("/children/<int:id>", methods=["PATCH"])
+def update_child(id):
+    child = Child.query.get(id)
+    if not child:
+        return jsonify({"message": "Child not found"}), 404
+    
+    try:
+        data = request.get_json()
+        
+        for field in ["name", "age", "description"]:
+            if field in data:
+                setattr(child, field, data[field])
+        
+        db.session.commit()
+        return jsonify(child.to_dict()), 200
+    
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": "Error updating child", "error": str(e.__dict__)}), 400
 
 @app.route("/adoptions", methods=["POST"])
 def create_adoption():

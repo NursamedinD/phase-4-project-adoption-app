@@ -27,6 +27,11 @@ api = Api(app)
 def index():
     return "<h1>Welcome to Child Adoption Api</h1>"
 
+@app.route("/parents", methods=['GET'])
+def get_parents():
+    parents = Parent.query.all()
+    return jsonify([parent.to_dict() for parent in parents]), 200
+
 
 @app.route("/parents", methods=["POST"])
 def create_parent():
@@ -40,6 +45,11 @@ def create_parent():
     db.session.add(new_parent)
     db.session.commit()
     return jsonify(new_parent.to_dict()), 201
+
+@app.route("/children", methods=['GET'])
+def get_children():
+    children = Child.query.all()
+    return jsonify([child.to_dict() for child in children]), 200
 
 
 @app.route("/children", methods=["POST"])

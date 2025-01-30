@@ -20,6 +20,8 @@ with app.app_context():
         )
         db.session.add(parent)
         parents.append(parent)
+    
+    db.session.commit()
 
     children = []
     for _ in range(5):
@@ -27,16 +29,19 @@ with app.app_context():
             name=fake.name(),
             age=fake.random_int(min=1, max=18),
             description=fake.text(),
-            added_by=random .choice(parents).id,
+            added_by=random.choice(parents).id,
         )
         db.session.add(child)
         children.append(child)
+    
+    db.session.commit()  
 
     for child in children:
         adoption = ChildParents(
             parent_id=random.choice(parents).id,
             child_id=child.id,
             adoption_date=datetime.strptime(fake.date(), "%Y-%m-%d"),
+            status="Pending"
         )
         db.session.add(adoption)
 

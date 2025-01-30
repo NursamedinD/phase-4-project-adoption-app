@@ -5,6 +5,8 @@ db = SQLAlchemy()
 
 class Parent (db.Model, SerializerMixin):
     __tablename__ = 'parents'
+    serialize_rules = ("-adoptions.parent",)
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     username = db.Column(db.String, nullable=False)
@@ -15,6 +17,9 @@ class Parent (db.Model, SerializerMixin):
 
 class Child (db.Model, SerializerMixin):
     __tablename__ = 'children'
+
+    serialize_rules = ("-adoptions.child",)
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
@@ -25,11 +30,14 @@ class Child (db.Model, SerializerMixin):
 
 class ChildParents(db.Model, SerializerMixin):
     __tablename__= 'child_parents'
+    
+    serialize_rules = ("-parent.adoptions", "child.adoptions")
+    
     id = db.Column(db.Integer, primary_key=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('parents.id'), nullable=False)
     child_id = db.Column(db.Integer, db.ForeignKey('children.id'), nullable=False)
     adoption_date = db.Column(db.Date, nullable=False)
-    status = db.Column(db.String, nullable=False)
+    status = db.Column(db.String, nullable=True)
 
     parent = db.relationship('Parent', back_populates='adoptions')
     child = db.relationship('Child', back_populates='adoptions')

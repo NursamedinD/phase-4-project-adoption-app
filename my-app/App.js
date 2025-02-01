@@ -20,5 +20,7 @@ function App() {
                 <Route path="/adopted-children" element={<PrivateRoute><AdoptedChildren /></PrivateRoute>} />
             </Routes>
         </Router>
-    )
+    );
 }
+
+export default App

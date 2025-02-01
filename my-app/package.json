@@ -12,6 +12,8 @@
     "vite": "^6.0.5"
   },
   "dependencies": {
-    "react-router-dom": "^7.1.5"
+    "formik": "^2.4.6",
+    "react-router-dom": "^7.1.5",
+    "yup": "^1.6.1"
   }
 }

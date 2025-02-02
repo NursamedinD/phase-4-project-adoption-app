@@ -1,5 +1,3 @@
-import React from "react";
-
 const API_URL = "http://127.0.0.1:5555";
 
 export const fetchChildren = async () => {
@@ -8,7 +6,7 @@ export const fetchChildren = async () => {
     return await response.json();
   } catch (error) {
     console.error("Error fetching children:", error);
-    return [];
+    return []; 
   }
 };
 
@@ -18,7 +16,7 @@ export const fetchChildById = async (id) => {
     return await response.json();
   } catch (error) {
     console.error(`Error fetching child with ID ${id}:`, error);
-    return null;
+    return null; 
   }
 };
 
@@ -76,6 +74,6 @@ export const fetchAdoptedChildren = async () => {
     return await response.json();
   } catch (error) {
     console.error("Error fetching adopted children:", error);
-    return [];
+    return []; 
   }
 };

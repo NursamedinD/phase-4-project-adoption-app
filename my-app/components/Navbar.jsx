@@ -6,8 +6,7 @@ function Navbar() {
         <nav>
             <Link to="/">Home</Link>
             <Link to="/adopted-children">Adopted Children</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/singup">Signup</Link>
+            <Link to="/add-child">Add a Child</Link>
         </nav>
     );
 }

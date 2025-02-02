@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchChildren } from "../api";  
+import { fetchChildren } from "./api";
+import React from "react";
 
 function AddChild() {
   const [name, setName] = useState("");
@@ -8,6 +9,11 @@ function AddChild() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [children, setChildren] = useState([]);
+
+  useEffect(() => {
+    fetchChildren().then((data) => setChildren(data));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +38,8 @@ function AddChild() {
       });
 
       if (response.ok) {
+        const updatedChildren = await fetchChildren();
+        setChildren(updatedChildren);
         navigate("/children");
       } else {
         setError("Failed to add child.");
@@ -75,8 +83,16 @@ function AddChild() {
         {error && <p className="error">{error}</p>}
         <button type="submit">Add Child</button>
       </form>
+
+      <h3>All Children</h3>
+      <ul>
+        {children.map((child) => (
+          <li key={child.id}>{child.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
 
 export default AddChild;
+

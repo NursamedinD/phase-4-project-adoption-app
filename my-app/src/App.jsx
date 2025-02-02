@@ -7,6 +7,7 @@ import Login from "../components/Login";
 import Signup from "../components/Signup";
 import AdoptionForm from "../components/AdoptionForm";
 import AdoptedChildren from "../components/AdoptedChildren";
+import AddChild from "../components/AddChild";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/adopted-children" element={<AdoptedChildren />} />
                 <Route path="/adopt" element={<AdoptionForm />} />
+                <Route path="/add-child" element={<AddChild />} />
             </Routes>
         </Router>
         {/* <header className="text-center mb-8">

@@ -1,0 +1,22 @@
+.app {
+    text-align: center;
+    margin: auto 0;
+}
+
+
+.navbar button {
+    border: 3px solid black;
+    justify-content: space-between;
+    background-color: pink;
+}
+
+.button {
+    border: 3px solid black;
+    justify-content: space-between;
+    background-color: pink;
+}
+
+.navbar h1{
+    text-align: center;
+    text-decoration: underline;
+}

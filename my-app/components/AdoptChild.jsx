@@ -31,7 +31,7 @@ const AdoptChild = () => {
     setLoading(true);
     setError("");
 
-    // Form validation
+    
     if (!selectedChild || !selectedParent) {
       setError("Please select both a child and a parent");
       setLoading(false);
@@ -39,17 +39,14 @@ const AdoptChild = () => {
     }
 
     try {
-      // Log the values being sent
       console.log("Sending adoption request with:", {
         childId: selectedChild,
         parentId: selectedParent
       });
-
-      // Call createAdoption with separate parameters
       const response = await createAdoption(selectedChild, selectedParent);
       console.log("Adoption response:", response);
 
-      // Reset form
+      
       setSelectedChild("");
       setSelectedParent("");
       alert("Adoption request submitted successfully!");

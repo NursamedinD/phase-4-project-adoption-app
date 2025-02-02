@@ -1,7 +1,7 @@
 import React from "react";
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Home from "../components/Home";
 import ChildDetail from "../components/ChildDetail";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
@@ -28,7 +28,6 @@ function App() {
                 <Route path="/add-parent" element={<AddParent />} />
                 <Route path="/parents" element={<ParentList />} />
                 <Route path="/adopt-child" element={<AdoptChild />} />
-                {/* <Route path="/adoption-list" element={<AdoptionList />} /> */}
             </Routes>
         </Router>
         </div>        

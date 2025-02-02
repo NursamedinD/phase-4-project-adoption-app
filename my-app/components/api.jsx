@@ -20,38 +20,6 @@ export const fetchChildById = async (id) => {
   }
 };
 
-export const loginUser = async (data) => {
-  try {
-    const response = await fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return await response.json();
-  } catch (error) {
-    console.error("Error logging in user:", error);
-    return null;
-  }
-};
-
-export const registerUser = async (data) => {
-  try {
-    const response = await fetch(`${API_URL}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return await response.json();
-  } catch (error) {
-    console.error("Error registering user:", error);
-    return null;
-  }
-};
-
 export const createAdoption = async (childId, parentId) => {
     if (!parentId || !childId) {
       console.error("Missing childId or parentId", { childId, parentId });

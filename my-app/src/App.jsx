@@ -2,9 +2,6 @@ import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import ChildDetail from "../components/ChildDetail";
-import Login from "../components/Login";
-import Signup from "../components/Signup";
 import AddChild from "../components/AddChild";
 import ChildList from "../components/ChildList";
 import AddParent from "../components/AddParent";
@@ -20,9 +17,6 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<AdoptionList />} />
-                <Route path="/child/:id" element={<ChildDetail />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
                 <Route path="/add-child" element={<AddChild />} />
                 <Route path="/children" element={<ChildList />} />
                 <Route path="/add-parent" element={<AddParent />} />

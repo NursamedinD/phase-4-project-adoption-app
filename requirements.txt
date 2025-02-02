@@ -11,3 +11,4 @@ python-dotenv
 gunicorn
 Werkzeug
 marshmallow
+sqlalchemy_serializer

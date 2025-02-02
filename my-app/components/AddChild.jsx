@@ -117,7 +117,7 @@ function AddChild() {
     };
  
     try {
-      const response = await fetch("http://127.0.0.1:5555/children", {
+      const response = await fetch("https://phase-4-project-backend-api-2.onrender.com/children", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

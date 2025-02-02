@@ -8,6 +8,7 @@ import Signup from "../components/Signup";
 import AdoptionForm from "../components/AdoptionForm";
 import AdoptedChildren from "../components/AdoptedChildren";
 import AddChild from "../components/AddChild";
+import ChildList from "../components/ChildList";
 
 
 function App() {
@@ -23,14 +24,9 @@ function App() {
                 <Route path="/adopted-children" element={<AdoptedChildren />} />
                 <Route path="/adopt" element={<AdoptionForm />} />
                 <Route path="/add-child" element={<AddChild />} />
+                <Route path="/children" element={<ChildList />} />
             </Routes>
         </Router>
-        {/* <header className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Child Adoption Application</h1>
-        <p className="mt-2 text-gray-600">
-          Thank you for considering adoption. Please fill out the form below.
-        </p>
-      </header> */}
         </div>        
     );
 }

@@ -8,7 +8,10 @@ from flask_cors import CORS
 
 from models import db, Parent, Child, ChildParents
 
-app = Flask(__name__)
+app = Flask(__name__, 
+    static_folder='../my-app/dist',
+    static_url_path=''
+)
 CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -207,6 +210,13 @@ def get_adopted_children():
         print(f"Error in get_adopted_children: {e}")
         return jsonify({"error": str(e)}), 500
 
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def static_proxy(path):
+    return send_from_directory(app.static_folder, path)
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

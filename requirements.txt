@@ -2,6 +2,7 @@ Flask
 Flask-SQLAlchemy
 Flask-Migrate
 Flask-CORS
+Flask-restful
 gunicorn
 psycopg2-binary
 python-dotenv

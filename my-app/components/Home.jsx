@@ -1,6 +1,8 @@
 import { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-import { fetchChildren } from "../api";
+import { fetchChildren } from "./api.jsx";
+import React from "react";
+import AdoptionForm from "./AdoptionForm.jsx"
 
 function Home() {
     const [children, setChildren] = useState([]);
@@ -19,6 +21,7 @@ function Home() {
                     <Link to={`/child/${child.id}`}>View More</Link>
                 </div>
             ))}
+            <AdoptionForm />
         </div>
     );
 }

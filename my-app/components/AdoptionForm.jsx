@@ -1,8 +1,9 @@
-import {submitAdoptionForm} from "../api";
+import { submitAdoptionRequest } from "../components/api";
+import React from "react";
 
 function AdoptedForm({ childId }) {
     const handleAdopt = () => {
-        submitAdoptionForm(childId).then(() => alert("Adoption request sent!"));
+        submitAdoptionRequest(childId).then(() => alert("Adoption request sent!"));
     }
 
     return <button onClick={handleAdopt}>Adopt</button>

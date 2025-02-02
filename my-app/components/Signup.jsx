@@ -1,7 +1,8 @@
 import { Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
-import { registerUser } from "../api";
+import { registerUser } from "./api.jsx";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 function Signup () {
     const navigate = useNavigate();

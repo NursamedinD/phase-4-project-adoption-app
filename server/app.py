@@ -183,7 +183,6 @@ def create_adoption():
 @app.route("/adopted-children", methods=["GET"])
 def get_adopted_children():
     try:
-        # Query the ChildParents table and join with Child and Parent
         adoptions = db.session.query(
             ChildParents, Child, Parent
         ).join(
@@ -192,8 +191,6 @@ def get_adopted_children():
             Parent, ChildParents.parent_id == Parent.id
         ).all()
 
-
-        # Format the response
         adoption_list = [{
             'id': adoption.ChildParents.id,
             'child_name': adoption.Child.name,

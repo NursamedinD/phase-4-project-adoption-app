@@ -1,91 +1,167 @@
 import React, { useState, useEffect } from "react";
 import { fetchAdoptedChildren } from "./api";
 
+
 const AdoptedList = () => {
   const [adoptedChildren, setAdoptedChildren] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
 
   useEffect(() => {
     const loadAdoptedChildren = async () => {
       try {
         setLoading(true);
         const data = await fetchAdoptedChildren();
-        console.log('Fetched data:', data);
+        console.log("Fetched data:", data);
         setAdoptedChildren(data);
       } catch (err) {
-        console.error('Error:', err);
+        console.error("Error:", err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
+
     loadAdoptedChildren();
   }, []);
 
+
+  const styles = {
+    container: {
+      maxWidth: '1200px',
+      margin: '2rem auto',
+      padding: '20px',
+      fontFamily: 'Arial, sans-serif'
+    },
+    title: {
+      textAlign: 'center',
+      color: '#2c3e50',
+      marginBottom: '2rem',
+      fontSize: '2rem',
+      fontWeight: 'bold'
+    },
+    tableContainer: {
+      overflowX: 'auto',
+      boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
+      borderRadius: '8px'
+    },
+    table: {
+      width: '100%',
+      borderCollapse: 'collapse',
+      backgroundColor: 'white',
+      border: '1px solid #ddd'
+    },
+    th: {
+      backgroundColor: '#f5f6fa',
+      color: '#2c3e50',
+      padding: '15px',
+      textAlign: 'left',
+      borderBottom: '2px solid #ddd',
+      fontSize: '0.9rem',
+      fontWeight: 'bold'
+    },
+    td: {
+      padding: '12px 15px',
+      borderBottom: '1px solid #ddd',
+      color: '#2c3e50'
+    },
+    loadingSpinner: {
+      textAlign: 'center',
+      padding: '2rem',
+      color: '#2c3e50'
+    },
+    error: {
+      textAlign: 'center',
+      padding: '1rem',
+      color: '#e74c3c',
+      backgroundColor: '#fde8e8',
+      border: '1px solid #f5b7b1',
+      borderRadius: '4px',
+      margin: '1rem 0'
+    },
+    statusBadge: {
+      padding: '6px 12px',
+      borderRadius: '15px',
+      fontSize: '0.85rem',
+      fontWeight: '500',
+      display: 'inline-block'
+    },
+    adoptedStatus: {
+      backgroundColor: '#d4edda',
+      color: '#155724'
+    },
+    pendingStatus: {
+      backgroundColor: '#fff3cd',
+      color: '#856404'
+    },
+    emptyMessage: {
+      textAlign: 'center',
+      padding: '2rem',
+      color: '#6c757d',
+      fontSize: '1.1rem'
+    }
+  };
+
+
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <div className="text-gray-600">Loading adopted children...</div>
+      <div style={styles.container}>
+        <div style={styles.loadingSpinner}>Loading adoption records...</div>
       </div>
     );
   }
+
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded-md">
-        <p className="text-red-600">Error: {error}</p>
+      <div style={styles.container}>
+        <div style={styles.error}>Error: {error}</div>
       </div>
     );
   }
 
+
   return (
-    <div className="p-6 bg-white rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold mb-6">Adopted Children List</h2>
-      
+    <div style={styles.container}>
+      <h2 style={styles.title}>Adopted Children Registry</h2>
+      <h5 style={styles.title}>Welcome to the Adoptify. Our Goal is to forge bonds between parents and children to create long loving relationships and a home.</h5>
+
       {adoptedChildren.length === 0 ? (
-        <p className="text-gray-600">No adopted children found.</p>
+        <div style={styles.emptyMessage}>
+          No adopted children records found.
+        </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+        <div style={styles.tableContainer}>
+          <table style={styles.table}>
+            <thead>
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  ID
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Child Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Parent Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Adoption Date
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
+                <th style={styles.th}>ID</th>
+                <th style={styles.th}>Child Name</th>
+                <th style={styles.th}>Parent Name</th>
+                <th style={styles.th}>Adoption Date</th>
+                <th style={styles.th}>Status</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody>
               {adoptedChildren.map((adoption) => (
-                <tr key={adoption.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {adoption.id}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {adoption.child_name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {adoption.parent_name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <tr key={adoption.id}>
+                  <td style={styles.td}>{adoption.id}</td>
+                  <td style={styles.td}>{adoption.child_name}</td>
+                  <td style={styles.td}>{adoption.parent_name}</td>
+                  <td style={styles.td}>
                     {new Date(adoption.adoption_date).toLocaleDateString()}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
-                      ${adoption.status === 'Adopted' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                  <td style={styles.td}>
+                    <span 
+                      style={{
+                        ...styles.statusBadge,
+                        ...(adoption.status === "Adopted" 
+                          ? styles.adoptedStatus 
+                          : styles.pendingStatus)
+                      }}
+                    >
                       {adoption.status}
                     </span>
                   </td>
@@ -99,5 +175,5 @@ const AdoptedList = () => {
   );
 };
 
-export default AdoptedList;
 
+export default AdoptedList;

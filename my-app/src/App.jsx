@@ -15,7 +15,7 @@ import AdoptionList from "../components/AdoptionList";
 
 function App() {
     return (
-        <div>
+        <div className="body">
         <Router >
             <Navbar />
             <Routes>

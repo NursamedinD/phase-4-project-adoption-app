@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchChildren } from "./api";
-import React from "react";
+import React from "react"; 
 
 function AddChild() {
   const [name, setName] = useState("");
@@ -9,25 +9,21 @@ function AddChild() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [children, setChildren] = useState([]);
-
-  useEffect(() => {
-    fetchChildren().then((data) => setChildren(data));
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (!name || !age || !description) {
       setError("All fields are required.");
       return;
     }
-
+  
     const newChild = {
       name,
       age,
       description,
     };
-
+  
     try {
       const response = await fetch("http://127.0.0.1:5555/children", {
         method: "POST",
@@ -36,19 +32,21 @@ function AddChild() {
         },
         body: JSON.stringify(newChild),
       });
-
+  
+      console.log("Response Status:", response.status);
+      console.log("Response Text:", await response.text());
       if (response.ok) {
-        const updatedChildren = await fetchChildren();
-        setChildren(updatedChildren);
         navigate("/children");
       } else {
-        setError("Failed to add child.");
+        const errorData = await response.json();
+        setError(errorData.message || "Failed to add child.");
       }
     } catch (err) {
-      console.error(err);
-      setError("An error occurred.");
+      console.error("An error occurred:", err);
+      setError("An error occurred while adding the child.");
     }
   };
+  
 
   return (
     <div>
@@ -83,16 +81,8 @@ function AddChild() {
         {error && <p className="error">{error}</p>}
         <button type="submit">Add Child</button>
       </form>
-
-      <h3>All Children</h3>
-      <ul>
-        {children.map((child) => (
-          <li key={child.id}>{child.name}</li>
-        ))}
-      </ul>
     </div>
   );
 }
 
 export default AddChild;
-

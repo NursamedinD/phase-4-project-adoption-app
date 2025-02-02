@@ -1,4 +1,4 @@
-const API_URL = "https://phase-4-project-backend-api.onrender.com/";
+const API_URL = "https://phase-4-project-backend-api-2.onrender.com/";
 
 export const fetchChildren = async () => {
   try {

@@ -143,19 +143,6 @@ def update_child(id):
         db.session.rollback()
         return jsonify({"message": "Error updating child", "error": str(e.__dict__)}), 400
 
-@app.route("/adoptions", methods=["POST"])
-def create_adoption():
-    data = request.get_json()
-    new_adoption = ChildParents(
-        parent_id=data['parent_id'],
-        child_id=data['child_id'],
-        adoption_date=data['adoption_date'],
-        status=data['status']
-    )
-    db.session.add(new_adoption)
-    db.session.commit()
-    return jsonify(new_adoption.to_dict()), 201
-
 @app.route("/adoptions/<int:id>", methods=["DELETE"])
 def delete_adoption(id):
     adoption = ChildParents.query.get(id)
@@ -164,6 +151,65 @@ def delete_adoption(id):
         db.session.commit()
         return jsonify ({"message": "Adoption deleted"}), 200
     return jsonify({"message": "Adoption not found"}), 404
+
+@app.route("/adoptions", methods=["POST"])
+def create_adoption():
+    data = request.get_json()
+    print("Received adoption request:", data)
+
+    parent_id = data.get("parentId")
+    child_id = data.get("childId")
+    
+    if not parent_id or not child_id:
+        return jsonify({"message": "Missing parentId or childId"}), 400
+    
+    try:
+        new_adoption = ChildParents(
+            parent_id=parent_id,
+            child_id=child_id,
+            adoption_date=datetime.now(),
+            status="Adopted"
+        )
+
+        db.session.add(new_adoption)
+        db.session.commit()
+
+        return jsonify(new_adoption.to_dict()), 201
+
+    except Exception as e:
+        print(f"Error in adoption creation: {e}") 
+        return jsonify({"message": "Error creating adoption", "error": str(e)}), 500
+    
+@app.route("/adopted-children", methods=["GET"])
+def get_adopted_children():
+    try:
+        # Query the ChildParents table and join with Child and Parent
+        adoptions = db.session.query(
+            ChildParents, Child, Parent
+        ).join(
+            Child, ChildParents.child_id == Child.id
+        ).join(
+            Parent, ChildParents.parent_id == Parent.id
+        ).all()
+
+
+        # Format the response
+        adoption_list = [{
+            'id': adoption.ChildParents.id,
+            'child_name': adoption.Child.name,
+            'parent_name': adoption.Parent.name,
+            'adoption_date': adoption.ChildParents.adoption_date.strftime('%Y-%m-%d'),
+            'status': adoption.ChildParents.status
+        } for adoption in adoptions]
+
+
+        return jsonify(adoption_list), 200
+
+
+    except Exception as e:
+        print(f"Error in get_adopted_children: {e}")
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

@@ -6,7 +6,7 @@ export const fetchChildren = async () => {
     return await response.json();
   } catch (error) {
     console.error("Error fetching children:", error);
-    return []; 
+    return [];
   }
 };
 
@@ -16,7 +16,7 @@ export const fetchChildById = async (id) => {
     return await response.json();
   } catch (error) {
     console.error(`Error fetching child with ID ${id}:`, error);
-    return null; 
+    return null;
   }
 };
 
@@ -52,31 +52,46 @@ export const registerUser = async (data) => {
   }
 };
 
-export const submitAdoptionRequest = async (childId, userId) => {
-  try {
-    const response = await fetch(`${API_URL}/adopt`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ childId, userId }),
-    });
-    return await response.json();
-  } catch (error) {
-    console.error("Error submitting adoption request:", error);
-    return null;
-  }
-};
-
-export const fetchAdoptedChildren = async () => {
-  try {
-    const response = await fetch(`${API_URL}/adopted-children`);
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching adopted children:", error);
-    return []; 
-  }
-};
+export const createAdoption = async (childId, parentId) => {
+    if (!parentId || !childId) {
+      console.error("Missing childId or parentId", { childId, parentId });
+      throw new Error("Missing childId or parentId");
+    }
+  
+    try {
+      const response = await fetch(`${API_URL}/adoptions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ parentId, childId }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error creating adoption");
+      }
+  
+      return await response.json();
+    } catch (error) {
+      console.error("Error creating adoption:", error);
+      throw error;
+    }
+  };
+  
+  export const fetchAdoptedChildren = async () => {
+    try {
+      const response = await fetch(`${API_URL}/adopted-children`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch adopted children');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
+    }
+  };
+  
 
 export const addParent = async (parentData) => {
   try {
@@ -100,7 +115,7 @@ export const fetchParents = async () => {
     return await response.json();
   } catch (error) {
     console.error("Error fetching parents:", error);
-    return []; 
+    return [];
   }
 };
 

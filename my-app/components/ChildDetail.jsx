@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchChildById } from "../api"
-import AdoptionForm from "./AdoptedForm";
+import AdoptionForm from "./AdoptedForm.jsx";
 
 function ChildDetail() {
     const { id } = useParams();

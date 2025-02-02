@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import ChildDetail from "./components/ChildDetail";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import AdoptedChildren from "./components/AdoptedChildren";
-import PrivateRoute from "./components/PrivateRoute";
+import Navbar from "../components/Navbar";
+import Home from "../components/Home";
+import ChildDetail from "../components/ChildDetail";
+import Login from "../components/Login";
+import Signup from "../components/Signup";
+import AdoptedChildren from "../components/AdoptedChildren";
+import PrivateRoute from "../components/PrivateRoute";
 
 
 function App() {

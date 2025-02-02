@@ -2,9 +2,9 @@
 
 This project was made by: Nursamedin Abdi Dualle
 
-Flask Render Link: 
+Flask (Backend) Render Link: https://phase-4-project-backend-api-2.onrender.com/
 
-React vercel Link: 
+React (FrontEnd) Render Link: https://phase-4-project-backend-api-1.onrender.com/
 
 ## Features
 

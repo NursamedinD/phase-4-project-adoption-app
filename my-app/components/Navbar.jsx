@@ -8,6 +8,8 @@ function Navbar() {
             <Link to="/adopted-children">Adopted Children</Link>
             <Link to="/add-child">Add a Child</Link>
             <Link to="/children">List of Children</Link>
+            <Link to="add-parent">Add a Parent</Link>
+            <Link to="/parents">List of Parents</Link>
         </nav>
     );
 }

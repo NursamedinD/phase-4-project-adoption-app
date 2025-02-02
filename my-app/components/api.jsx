@@ -77,3 +77,30 @@ export const fetchAdoptedChildren = async () => {
     return []; 
   }
 };
+
+export const addParent = async (parentData) => {
+  try {
+    const response = await fetch(`${API_URL}/parents`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(parentData),
+    });
+    return response;
+  } catch (error) {
+    console.error("Error adding parent:", error);
+    throw error;
+  }
+};
+
+export const fetchParents = async () => {
+  try {
+    const response = await fetch(`${API_URL}/parents`);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching parents:", error);
+    return []; 
+  }
+};
+

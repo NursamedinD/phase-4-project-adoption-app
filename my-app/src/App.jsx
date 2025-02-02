@@ -9,6 +9,8 @@ import AdoptionForm from "../components/AdoptionForm";
 import AdoptedChildren from "../components/AdoptedChildren";
 import AddChild from "../components/AddChild";
 import ChildList from "../components/ChildList";
+import AddParent from "../components/AddParent";
+import ParentList from "../components/ParentList";
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
                 <Route path="/adopt" element={<AdoptionForm />} />
                 <Route path="/add-child" element={<AddChild />} />
                 <Route path="/children" element={<ChildList />} />
+                <Route path="/add-parent" element={<AddParent />} />
+                <Route path="/parents" element={<ParentList />} />
             </Routes>
         </Router>
         </div>        

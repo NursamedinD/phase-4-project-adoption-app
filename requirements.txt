@@ -1,8 +1,13 @@
 Flask
 Flask-SQLAlchemy
 Flask-Migrate
-Flask-CORS
-Flask-restful
-gunicorn
+Flask-RESTful
+Flask-Cors
+Flask-Marshmallow
+marshmallow-sqlalchemy
+SQLAlchemy
 psycopg2-binary
 python-dotenv
+gunicorn
+Werkzeug
+marshmallow

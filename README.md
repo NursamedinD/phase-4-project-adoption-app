@@ -11,6 +11,9 @@ React (FrontEnd) Render Link: https://phase-4-project-backend-api-1.onrender.com
 - Add a Parent
 - Add a Child
 - Submit an Adoption request
+- Display a list of Children available
+- Display a list of Parent's available
+- Displays the status of if a child has been adopted yet or not
 
 ## How to run locally
 You will need a:
@@ -23,37 +26,30 @@ You will need a:
 - VS Code.
 - Ubuntu.
 
-## Frontend Deployment (Static Site):
-- Navigate to Render Dashboard
-- Click "New +" and select "Static Site"
-### Settings:
-- Name: your-frontend-name
-- Build Command: npm install && npm run build
-- Publish Directory: dist
--Root Directory: my-app
+# Installation process:
+1. Clone this repo by typing this or even copying and pasting it into your terminal:
 
-## Backend Deployment (Web Service):
-- Navigate to Render Dashboard
-- Click "New +" and select "Web Service"
-- Settings:
-- Name: your-backend-name
-- Build Command: pip install -r requirements.txt
-- Start Command: cd server && gunicorn app:app
+'git clone git@github.com/NursamedinD/phase-4-project-adoption-app'
 
-## Required Files:
-- requirements.txt
-- Flask
-- Flask-Migrate
-- Flask-RESTful
-- Flask-Cors
-- Flask-Marshmallow
-- marshmallow-sqlalchemy
-- SQLAlchemy
-- psycopg2-binary
-- python-dotenv
-- gunicorn
-- Werkzeug
-- marshmallow
-- sqlalchemy-serializer
+2. Find the directory of the file by typing:
+
+'cd phase-4-project-adoption-app'
+
+3. Open it in VS Code, or you prefered code editor and run these commands:
+
+'pipenv install' 'pipenv shell'
+
+## Notes
+
+- If you want to access the backend code/database for this type:
+
+'cd server', after being inside the directory
+
+- For the front end type:
+
+'cd my-app'
+
+- It also helps to have two terminals running, one for backend, and the other for frontend when testing
+
 
 
